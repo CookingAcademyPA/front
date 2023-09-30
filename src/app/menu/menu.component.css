@@ -1,0 +1,52 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFAB40;
+  padding: 10px;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+}
+
+.tabs ul,
+.user-tabs ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs li,
+.user-tabs li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.tabs a,
+.user-tabs a {
+  color: #333;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.tabs a:hover,
+.user-tabs a:hover {
+  background-color: #ddd;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.search-bar mat-icon {
+  cursor: pointer;
+}

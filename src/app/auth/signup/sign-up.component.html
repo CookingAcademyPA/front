@@ -1,0 +1,25 @@
+<div class="signup-container">
+  <h2>CREATE AN ACCOUNT</h2>
+  <div class="signup-options">
+    <button (click)="selectOption(typeAccount[0])">Client Account</button>
+    <button (click)="selectOption(typeAccount[1])">Professional Account</button>
+  </div>
+  <div *ngIf="selectedOption === typeAccount[0]">
+    <h3>Client Account</h3>
+    <form>
+      <!-- Personal Account Signup Form -->
+    </form>
+    <div class="login-link">
+      <p>Already have an account? <a href="/login">Log in</a></p>
+    </div>
+  </div>
+  <div *ngIf="selectedOption === typeAccount[1]">
+    <h3>Professional Account</h3>
+    <form>
+      <!-- Business Account Signup Form -->
+    </form>
+    <div class="login-link">
+      <p>Already have an account? <a href="/login">Log in</a></p>
+    </div>
+  </div>
+</div>

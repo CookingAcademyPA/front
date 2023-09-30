@@ -1,0 +1,31 @@
+.signup-container {
+  width: 300px;
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.signup-options {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.signup-options button {
+  margin: 0 10px;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link a {
+  color: #007bff;
+}
