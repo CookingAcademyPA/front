@@ -1,25 +1,41 @@
-<div class="signup-container">
-  <h2>CREATE AN ACCOUNT</h2>
-  <div class="signup-options">
-    <button (click)="selectOption(typeAccount[0])">Client Account</button>
-    <button (click)="selectOption(typeAccount[1])">Professional Account</button>
-  </div>
-  <div *ngIf="selectedOption === typeAccount[0]">
-    <h3>Client Account</h3>
-    <form>
-      <!-- Personal Account Signup Form -->
-    </form>
-    <div class="login-link">
-      <p>Already have an account? <a href="/login">Log in</a></p>
+<div class="container">
+  <h2>Création de compte</h2>
+
+    <div class="form-group">
+      <label for="email">Email :Y</label>
+      <input type="email" class="form-control" id="email" formControlName="email" required>
     </div>
-  </div>
-  <div *ngIf="selectedOption === typeAccount[1]">
-    <h3>Professional Account</h3>
-    <form>
-      <!-- Business Account Signup Form -->
-    </form>
-    <div class="login-link">
-      <p>Already have an account? <a href="/login">Log in</a></p>
+    <div class="form-group">
+      <label for="password">Mot de passe :</label>
+      <input type="password" class="form-control" id="password" formControlName="password" required>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="first_name">Prénom :</label>
+      <input type="text" class="form-control" id="first_name" formControlName="first_name" required>
+    </div>
+    <div class="form-group">
+      <label for="last_name">Nom :</label>
+      <input type="text" class="form-control" id="last_name" formControlName="last_name" required>
+    </div>
+    <div class="form-group">
+      <label for="birthday_date">Date de naissance :</label>
+      <input type="date" class="form-control" id="birthday_date" formControlName="birthday_date" required>
+    </div>
+    <div class="form-group">
+      <label for="street">Adresse :</label>
+      <input type="text" class="form-control" id="street" formControlName="street" required>
+    </div>
+    <div class="form-group">
+      <label for="postal_code">Code postal :</label>
+      <input type="text" class="form-control" id="postal_code" formControlName="postal_code" required>
+    </div>
+    <div class="form-group">
+      <label for="city">Ville :</label>
+      <input type="text" class="form-control" id="city" formControlName="city" required>
+    </div>
+    <div class="form-group">
+      <label for="country">Pays :</label>
+      <input type="text" class="form-control" id="country" formControlName="country" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Créer mon compte</button>
 </div>
