@@ -3,19 +3,20 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
+;
+
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit{
-  registerForm!: FormGroup;
+  registerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
               private http: HttpClient,
-              private router: Router) {}
+              private router: Router) {
 
-  ngOnInit() {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -29,11 +30,19 @@ export class SignUpComponent implements OnInit{
     });
   }
 
+  ngOnInit() {
+  }
+
   onSubmit() {
     if (this.registerForm.invalid){
       return;
     }
-    this.http.post('https://cookingacademy.azurewebsites.net/api/auth/signup', this.registerForm.value)
+    const requestBody = {
+      'subscription_id': 1,
+      'is_admin': false,
+      ...this.registerForm.value
+    };
+    this.http.post('https://cookingacademy.azurewebsites.net/api/auth/signup', requestBody)
       .subscribe(
         (response: any) => {
           // L'inscription a réussi, vous pouvez gérer ici la redirection et la notification

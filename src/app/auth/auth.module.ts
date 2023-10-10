@@ -19,8 +19,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     RouterLink,
     MatCardModule,
     MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AuthModule { }

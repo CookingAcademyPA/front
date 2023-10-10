@@ -11,7 +11,8 @@ import { MealComponent } from './meal/meal.component';
 import { CookingClassComponent } from './cooking-class/cooking-class.component';
 import { ProductComponent } from './product/product.component';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
+import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -26,10 +27,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     MenuModule,
     FooterModule,
+    AuthModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
