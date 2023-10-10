@@ -1,0 +1,55 @@
+/* meals.component.css */
+
+.meal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.meal {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.meal-image {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.meal-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.meal-description {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.meal-price {
+  font-size: 18px;
+  color: #e44d26; /* Couleur du prix */
+  margin-bottom: 10px;
+}
+
+.order-button {
+  background-color: #e44d26; /* Couleur du bouton de commande */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-button:hover {
+  background-color: #c6340b; /* Couleur du bouton de commande au survol */
+}

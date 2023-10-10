@@ -13,4 +13,5 @@ export class SignUpComponent {
   selectOption(option: string) {
     this.selectedOption = option;
   }
+
 }

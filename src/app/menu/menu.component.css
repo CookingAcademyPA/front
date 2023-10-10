@@ -1,52 +1,44 @@
+/* menu.component.css */
+
 .menu {
+  background-color: #25a3c9;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #FFAB40;
-  padding: 10px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logo img {
-  width: 50px;
-  height: 50px;
+.menu .logo img {
+  max-width: 100px;
 }
 
-.tabs ul,
-.user-tabs ul {
-  list-style-type: none;
-  margin: 0;
+.menu .tabs ul,
+.menu .user-tabs ul {
+  list-style: none;
   padding: 0;
-}
-
-.tabs li,
-.user-tabs li {
-  display: inline;
-  margin-right: 10px;
-}
-
-.tabs a,
-.user-tabs a {
-  color: #333;
-  text-decoration: none;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.tabs a:hover,
-.user-tabs a:hover {
-  background-color: #ddd;
-}
-
-.search-bar {
+  margin: 0;
   display: flex;
-  align-items: center;
+  gap: 20px;
 }
 
-.search-bar input {
-  width: 200px;
-  margin-right: 10px;
+.menu .tabs ul li,
+.menu .user-tabs ul li {
+  font-size: 18px;
 }
 
-.search-bar mat-icon {
-  cursor: pointer;
+.menu .tabs ul li a,
+.menu .user-tabs ul li a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.menu .tabs ul li a:hover,
+.menu .user-tabs ul li a:hover {
+  color: #e44d26; /* Changement de couleur au survol */
+}
+
+.menu .user-tabs ul li a mat-icon {
+  font-size: 24px;
 }

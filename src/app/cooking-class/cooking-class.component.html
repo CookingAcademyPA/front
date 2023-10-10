@@ -1,0 +1,16 @@
+
+<!-- services.component.html -->
+
+<div class="service-list">
+  <div class="service" *ngFor="let service of services">
+    <img src="assets/cap_cuisine-min_0-2.jpg" alt="{{ service.title }}" class="service-image">
+    <h2 class="service-name">{{ service.title }}</h2>
+    <p class="service-description">{{ service.description }}</p>
+    <p class="service-price">Prix : {{ service.price }} €</p>
+    <p class="service-participants">Nombre de participants : {{ service.number_of_person }}</p>
+    <p class="service-location">Lieu : {{ service.place }}</p>
+    <p class="service-date">Date/Heure : {{ service.start_date }}</p>
+    <p class="service-duration">Durée : 2H</p>
+    <button class="reserve-button">Réserver</button>
+  </div>
+</div>

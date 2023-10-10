@@ -1,0 +1,75 @@
+/* services.component.css */
+
+.service-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.service {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  max-width: 300px;
+}
+
+.service-image {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.service-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.service-description {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.service-price {
+  font-size: 18px;
+  color: #e44d26; /* Couleur du prix */
+  margin-bottom: 10px;
+}
+
+.service-participants {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.service-location {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.service-date {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.service-duration {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.reserve-button {
+  background-color: #e44d26; /* Couleur du bouton de réservation */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reserve-button:hover {
+  background-color: #c6340b; /* Couleur du bouton de réservation au survol */
+}

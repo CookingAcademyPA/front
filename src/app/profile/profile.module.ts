@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
+import {MatCardModule} from "@angular/material/card";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -9,7 +11,9 @@ import { ProfileComponent } from './profile.component';
     ProfileComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatCardModule,
+    FormsModule
   ]
 })
 export class ProfileModule { }
