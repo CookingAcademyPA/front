@@ -1,0 +1,58 @@
+/* connexion.component.css */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 1200px;
+}
+
+.left-section, .right-section {
+  flex: 1;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+.separator {
+  width: 2px;
+  background-color: #25a3c9;
+  height: 100%;
+  margin: 0 20px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.connect-button, .create-account-button {
+  background-color: #e44d26;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.connect-button:hover, .create-account-button:hover {
+  background-color: #c6340b;
+}
+
+.button-explanation {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}

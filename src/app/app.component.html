@@ -1,5 +1,10 @@
 <div class="wrapper">
-  <app-menu></app-menu>
+  <ng-container *ngIf="isHomePageRoute()">
+    <app-menu-blank></app-menu-blank>
+  </ng-container>
+  <ng-container *ngIf="!isHomePageRoute()">
+    <app-menu></app-menu>
+  </ng-container>
   <router-outlet></router-outlet>
 </div>
 

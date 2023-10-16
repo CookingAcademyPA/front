@@ -12,6 +12,8 @@ import {RecipeComponent} from "./recipe/recipe.component";
 import {MealComponent} from "./meal/meal.component";
 import {CookingClassComponent} from "./cooking-class/cooking-class.component";
 import {ProductComponent} from "./product/product.component";
+import {CartComponent} from "./cart/cart.component";
+import {ConnexionComponent} from "./connexion/connexion.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -26,7 +28,9 @@ const routes: Routes = [
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'terms', component: TermComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path: 'connexion', component: ConnexionComponent},
+  { path: 'cart', component: CartComponent},
+  { path: '', redirectTo: '/connexion', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent } // Route pour la page non trouvée
 ];
 

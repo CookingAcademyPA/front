@@ -1,0 +1,21 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h2>Votre Panier</h2>
+  </div>
+  <div class="cart-items">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <img class="cart-item-image" src="assets/262.jpg" alt="Product Image">
+      <div class="cart-item-details">
+        <h3 class="cart-item-name">{{ item.name }}</h3>
+        <p class="cart-item-description">{{ item.description }}</p>
+        <p class="cart-item-price">{{ item.price | currency: 'USD' }}</p>
+      </div>
+      <button class="cart-item-remove-button">Supprimer</button>
+    </div>
+  </div>
+  <div class="cart-total">
+    <p>Total : {{ calculateTotal() | currency: 'USD' }}</p>
+  </div>
+  <button class="checkout-button">Passer la Commande</button>
+</div>
+

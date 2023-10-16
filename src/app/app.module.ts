@@ -13,6 +13,9 @@ import { ProductComponent } from './product/product.component';
 import { HttpClientModule } from '@angular/common/http';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AuthModule} from "./auth/auth.module";
+import { ConnexionComponent } from './connexion/connexion.component';
+import { MenuBlankComponent } from './menu-blank/menu-blank.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import {AuthModule} from "./auth/auth.module";
     RecipeComponent,
     MealComponent,
     CookingClassComponent,
-    ProductComponent
+    ProductComponent,
+    ConnexionComponent,
+    MenuBlankComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
