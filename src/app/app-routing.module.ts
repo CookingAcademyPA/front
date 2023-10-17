@@ -14,6 +14,7 @@ import {CookingClassComponent} from "./cooking-class/cooking-class.component";
 import {ProductComponent} from "./product/product.component";
 import {CartComponent} from "./cart/cart.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
+import {NotifComponent} from "./notif/notif.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
   { path: 'meal', component: MealComponent },
   { path: 'cooking-class', component: CookingClassComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'notifications', component: PageEmptyComponent },
+  { path: 'notifications', component: NotifComponent },
   { path: 'messages', component: PageEmptyComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'signin', component: SignInComponent },

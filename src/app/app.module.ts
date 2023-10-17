@@ -16,6 +16,7 @@ import {AuthModule} from "./auth/auth.module";
 import { ConnexionComponent } from './connexion/connexion.component';
 import { MenuBlankComponent } from './menu-blank/menu-blank.component';
 import { CartComponent } from './cart/cart.component';
+import { NotifComponent } from './notif/notif.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CartComponent } from './cart/cart.component';
     ProductComponent,
     ConnexionComponent,
     MenuBlankComponent,
-    CartComponent
+    CartComponent,
+    NotifComponent
   ],
   imports: [
     BrowserModule,

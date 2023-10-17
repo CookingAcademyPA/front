@@ -1,0 +1,52 @@
+.notifications-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.notifications-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  max-width: 400px;
+}
+
+.notification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.notification-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.notification-time {
+  font-size: 14px;
+}
+
+.notification-button {
+  background-color: #e44d26;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.notification-button:hover {
+  background-color: #c6340b;
+}
