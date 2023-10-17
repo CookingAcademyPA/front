@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthentService} from "../../authent.service";
 
 @Component({
   selector: 'app-signin',
@@ -12,7 +13,7 @@ export class SignInComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private authent: AuthentService) {
   }
 
   onSubmit(): void {
@@ -32,7 +33,7 @@ export class SignInComponent {
         (response) => {
           // En cas de succès, le serveur renvoie un token.
           // Vous pouvez stocker ce token dans un service d'authentification ou dans un cookie sécurisé.
-
+          this.authent.setToken(response.token);
           // Redirigez l'utilisateur vers la page d'accueil (/home).
           this.router.navigate(['/home']);
         },
