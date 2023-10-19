@@ -24,7 +24,9 @@
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.1",
     "jwt-decode": "^3.1.2",
+    "pdfmake": "^0.2.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -34,6 +36,7 @@
     "@angular/cli": "~16.0.4",
     "@angular/compiler-cli": "^16.0.0",
     "@types/jasmine": "~4.3.0",
+    "@types/pdfmake": "^0.2.7",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

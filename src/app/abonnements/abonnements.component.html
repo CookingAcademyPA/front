@@ -1,0 +1,9 @@
+<div class="abonnements-container">
+  <div class="abonnement" *ngFor="let abonnement of abonnements">
+    <h3>{{ abonnement.name }}</h3>
+    <p>{{ abonnement.price }}</p>
+    <ul>
+      <li *ngFor="let avantage of abonnement.advantages">{{ avantage }}</li>
+    </ul>
+  </div>
+</div>

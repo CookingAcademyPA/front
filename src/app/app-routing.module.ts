@@ -15,6 +15,7 @@ import {ProductComponent} from "./product/product.component";
 import {CartComponent} from "./cart/cart.component";
 import {ConnexionComponent} from "./connexion/connexion.component";
 import {NotifComponent} from "./notif/notif.component";
+import {AbonnementsComponent} from "./abonnements/abonnements.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'terms', component: TermComponent },
   {path: 'connexion', component: ConnexionComponent},
   { path: 'cart', component: CartComponent},
+  { path: 'abonnements', component: AbonnementsComponent},
   { path: '', redirectTo: '/connexion', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent } // Route pour la page non trouvée
 ];

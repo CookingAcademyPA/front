@@ -17,6 +17,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { MenuBlankComponent } from './menu-blank/menu-blank.component';
 import { CartComponent } from './cart/cart.component';
 import { NotifComponent } from './notif/notif.component';
+import { AbonnementsComponent } from './abonnements/abonnements.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NotifComponent } from './notif/notif.component';
     ConnexionComponent,
     MenuBlankComponent,
     CartComponent,
-    NotifComponent
+    NotifComponent,
+    AbonnementsComponent
   ],
   imports: [
     BrowserModule,

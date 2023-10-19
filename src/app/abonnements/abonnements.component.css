@@ -1,0 +1,36 @@
+.abonnements-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.abonnement {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  max-width: 300px;
+  margin: 0 auto; /* Centre horizontalement */
+}
+
+.abonnement h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.abonnement p {
+  font-size: 18px;
+  color: #e44d26;
+  margin-bottom: 10px;
+}
+
+.abonnement ul {
+  list-style: none;
+  padding: 0;
+}
+
+.abonnement li {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
