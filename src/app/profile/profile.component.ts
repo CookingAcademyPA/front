@@ -18,7 +18,7 @@ export class ProfileComponent {
   ) {}
   ngOnInit(): void {
     // Obtenez l'ID de l'utilisateur à partir du jeton
-    const userId = this.authService.getUserIdFromToken();
+    const userId = sessionStorage.getItem('userId');
 
     if (userId) {
       // Construisez l'URL de l'API en utilisant l'ID de l'utilisateur
@@ -26,9 +26,10 @@ export class ProfileComponent {
 
       // Définissez les en-têtes avec le jeton JWT
       const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.authService.getToken()}`
+        Authorization: `${sessionStorage.getItem('token')}`
       });
+
+      console.log(headers);
 
       // Effectuez une requête HTTP GET pour obtenir les données de l'utilisateur
       this.http.get(apiUrl, { headers }).subscribe(

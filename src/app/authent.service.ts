@@ -6,7 +6,6 @@ import decode from 'jwt-decode';
 })
 export class AuthentService {
 
-  jwtToken!: string;
   tokenInfos! : { [key: string]: string };
   private authToken: string = '';
 
@@ -21,9 +20,10 @@ export class AuthentService {
   getToken(): string {
     return this.authToken;
   }
+
   decodeToken() {
-    if (this.jwtToken) {
-      this.tokenInfos = decode(this.jwtToken);
+    if (this.authToken) {
+      this.tokenInfos = decode(this.authToken);
     }
   }
 
