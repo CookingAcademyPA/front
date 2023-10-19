@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthentService} from "../../authent.service";
+import {lastValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-signin',
@@ -23,17 +24,19 @@ export class SignInComponent {
     };
 
     // En-têtes pour la requête HTTP (si nécessaire)
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-      // Ajoutez d'autres en-têtes si nécessaires
-    });
+    const header = new HttpHeaders()
+      .set('Authorization', 'my-auth-token')
+      .set('Content-Type', 'application/json');
 
-    this.http.post<any>('https://cookingacademy.azurewebsites.net/api/auth/login', formData, { headers })
+    this.http.post<any>('https://cookingacademy.azurewebsites.net/api/auth/login', formData, { headers: header })
       .subscribe(
         (response) => {
           // En cas de succès, le serveur renvoie un token.
           // Vous pouvez stocker ce token dans un service d'authentification ou dans un cookie sécurisé.
           this.authent.setToken(response.token);
+          sessionStorage.setItem('token', response.token);
+          const userId = this.authent.getUserIdFromToken();
+
           // Redirigez l'utilisateur vers la page d'accueil (/home).
           this.router.navigate(['/home']);
         },
