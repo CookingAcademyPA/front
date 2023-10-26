@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, NgModule} from '@angular/core';
 import {AuthentService} from "../authent.service";
-import {Router} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent {
 
   user: any = {};
@@ -48,6 +49,21 @@ export class ProfileComponent {
   saveProfile() {
     // Logique pour enregistrer le profil de l'utilisateur
     console.log('Profil utilisateur enregistré :', this.user);
+  }
+  getSubscriptionName(): string {
+    switch (this.user.subscription_id) {
+      case 1:
+        return 'Free';
+      case 2:
+        return 'Starter';
+      case 3:
+        return 'Master';
+      default:
+        return 'Inconnu';
+    }
+  }
+  redirectToAbonnements() {
+    this.router.navigate(['/abonnements']); // Effectue la redirection
   }
   test() {
     console.log(this.authService.getToken());

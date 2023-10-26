@@ -5,5 +5,6 @@
     <ul>
       <li *ngFor="let avantage of abonnement.advantages">{{ avantage }}</li>
     </ul>
+    <button *ngIf="abonnement.name === 'Starter' || abonnement.name === 'Master'" (click)="souscrire(abonnement.name)">Souscrire</button>
   </div>
 </div>

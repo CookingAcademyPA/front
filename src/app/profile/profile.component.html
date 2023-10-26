@@ -31,13 +31,13 @@
     </div>
     <div class="info-group">
       <label>Abonnement :</label>
-      <span>{{ user.subscription_id }}</span>
+      <span>{{  getSubscriptionName() }}</span>
     </div>
+    <button (click)="redirectToAbonnements()" class="update-subscription-button">Actualiser mon abonnement</button>
   </div>
 </div>
 
 
-<!-- <button class="checkout-button" (click)="test()">test</button>-->
 
 
 
