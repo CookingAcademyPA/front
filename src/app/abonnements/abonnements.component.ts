@@ -8,6 +8,9 @@ import {AuthentService} from "../authent.service";
   styleUrls: ['./abonnements.component.css']
 })
 export class AbonnementsComponent {
+
+  paymentHandler: any = null;
+
   abonnements = [
     {
       name: 'Free',
@@ -27,23 +30,69 @@ export class AbonnementsComponent {
   ];
 
   constructor(private http: HttpClient,private authService: AuthentService) {}
+  ngOnInit() {
+    this.invokeStripe();
+  }
+
+  makePayment(amount: any) {
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51O7GtdGbMLAE7m3ZvSVmlcnpIMEWF77j5eOtcw1UskTQRQEKI33Hzchgr6QboI34oDZBwEavRTyggKhhc1QlVPPa00ws3E3j3J',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken);
+        alert('payment successfull!');
+      },
+    });
+    paymentHandler.open({
+      name: 'Checkout',
+      description: '',
+      amount: amount * 100,
+    });
+  }
+  invokeStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement('script');
+      script.id = 'stripe-script';
+      script.type = 'text/javascript';
+      script.src = 'https://checkout.stripe.com/checkout.js';
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51O7GtdGbMLAE7m3ZvSVmlcnpIMEWF77j5eOtcw1UskTQRQEKI33Hzchgr6QboI34oDZBwEavRTyggKhhc1QlVPPa00ws3E3j3J',
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken);
+            alert('Payment has been successfull!');
+          },
+        });
+      };
+      window.document.body.appendChild(script);
+    }
+  }
 
   souscrire(abonnementName: string) {
+
     let newSubscriptionId: number;
+    let amount: any;
 
     // Déterminez le nouvel subscription_id en fonction de l'abonnement sélectionné
     switch (abonnementName) {
       case 'Free':
         newSubscriptionId = 1;
+        amount = 0;
         break;
       case 'Starter':
         newSubscriptionId = 2;
+        amount = 9.90;
         break;
       case 'Master':
         newSubscriptionId = 3;
+        amount = 19;
         break;
       default:
         return;
+    }
+    if (newSubscriptionId !=1){
+      this.makePayment(amount)
     }
     const userId = sessionStorage.getItem('userId'); // Assurez-vous de l'implémenter
 

@@ -20,6 +20,10 @@ export class AuthentService {
   getToken(): string {
     return this.authToken;
   }
+  clearToken() {
+    localStorage.removeItem('token');
+    this.authToken = '';
+  }
 
   decodeToken() {
     if (this.authToken) {
