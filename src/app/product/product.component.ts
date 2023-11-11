@@ -1,24 +1,32 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit{
+export class ProductComponent implements OnInit {
+  private apiUrl = environment.apiUrl;
   products: any[] = [];
+  cartId = sessionStorage.getItem('cartId');
 
-  constructor(private http: HttpClient) { }
+  private token = sessionStorage.getItem('token') || '';
+  private header = new HttpHeaders()
+    .set('Authorization', this.token)
+    .set('Content-Type', 'application/json');
+
+  constructor(private http: HttpClient, private toastr: ToastrService) {
+  }
 
   ngOnInit() {
     this.getAllProducts();
   }
 
   getAllProducts() {
-    const apiUrl = 'https://cookingacademy.azurewebsites.net/api/products';
-
-    this.http.get(apiUrl).subscribe(
+    this.http.get(`${this.apiUrl}/products`).subscribe(
       (data: any) => {
         this.products = data;
       },
@@ -27,24 +35,21 @@ export class ProductComponent implements OnInit{
       }
     );
   }
-  /*products = [
-    {
-      name: 'Casserole en acier inoxydable',
-      description: 'Casserole de qualité supérieure en acier inoxydable.',
-      price: 49.99,
-      imageUrl: 'https://example.com/casserole.jpg'
-    },
-    {
-      name: 'Couteau de chef professionnel',
-      description: 'Couteau de chef haut de gamme pour une découpe précise.',
-      price: 89.99,
-      imageUrl: 'https://example.com/couteau.jpg'
-    },
-    {
-      name: 'Machine à café automatique',
-      description: 'Machine à café élégante pour préparer des expressos parfaits.',
-      price: 199.99,
-      imageUrl: 'https://example.com/coffee-machine.jpg'
+
+  buyProduct(productId: string, productName: string) {
+    const body = {
+      'cart_id': this.cartId,
+      'product_id': productId,
+      'quantity': 1
     }
-  ];*/
+    this.http.post(`${this.apiUrl}/buy/product/${productId}`, body, {headers: this.header}).subscribe(
+      (data) => {
+        this.toastr.success(`${productName} a été ajouté au panier.`, 'Succès');
+      },
+      (error) => {
+        if (error.status === 400) {
+          this.toastr.warning(`${productName} est déjà dans votre panier.`, 'Attention');
+        }
+      });
+  }
 }

@@ -21,7 +21,7 @@ export class AuthentService {
     return this.authToken;
   }
   clearToken() {
-    localStorage.removeItem('token');
+    sessionStorage.clear();
     this.authToken = '';
   }
 

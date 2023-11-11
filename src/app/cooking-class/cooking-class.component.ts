@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
+import {environment} from "../../environments/environment";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-cooking-class',
@@ -7,20 +10,32 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./cooking-class.component.css']
 })
 export class CookingClassComponent implements OnInit {
+  private apiUrl = environment.apiUrl;
   services: any[] = [];
+  cartId = sessionStorage.getItem('cartId') || '';
 
-  constructor(private http: HttpClient) { }
+  token = sessionStorage.getItem('token') || '';
+  private header = new HttpHeaders()
+    .set('Authorization', this.token)
+    .set('Content-Type', 'application/json');
+
+
+  constructor(private http: HttpClient, private toastr: ToastrService) {
+  }
 
   ngOnInit() {
     this.getAllServices();
   }
 
   getAllServices() {
-    const apiUrl = 'https://cookingacademy.azurewebsites.net/api/services';
-
-    this.http.get(apiUrl).subscribe(
+    this.http.get(`${this.apiUrl}/services`).subscribe(
       (data: any) => {
         this.services = data;
+        this.services.forEach(service => {
+          this.getRemainingPlaces(service.id).subscribe(
+            remainingPlaces => service.remainingPlaces = service.number_of_person - remainingPlaces
+          );
+        });
       },
       (error) => {
         console.error('Une erreur s\'est produite lors de la récupération des services :', error);
@@ -28,48 +43,39 @@ export class CookingClassComponent implements OnInit {
     );
   }
 
-
-  // @ts-ignore
-  /*services = [
-    {
-      title: 'Cours de Cuisine',
-      description: 'Apprenez à cuisiner comme un chef.',
-      price: 49.99,
-      participants: 10,
-      location: 'Studio de cuisine XYZ',
-      date: '10 avril 2023, 14:00',
-      duration: '3 heures',
-      imageUrl: 'https://example.com/cuisine.jpg'
-    },
-    {
-      title: 'Dégustation de Vin',
-      description: 'Découvrez une sélection de vins exquis.',
-      price: 29.99,
-      participants: 20,
-      location: 'Cave à vin ABC',
-      date: '15 mai 2023, 18:30',
-      duration: '2 heures',
-      imageUrl: 'https://example.com/vin.jpg'
-    },
-    {
-      title: 'Formation en Pâtisserie',
-      description: 'Maîtrisez lart de la pâtisserie.',
-      price: 79.99,
-      participants: 8,
-      location: 'École de pâtisserie XYZ',
-      date: '5 juin 2023, 10:00',
-      duration: '4 heures',
-      imageUrl: 'https://example.com/patisserie.jpg'
-    },
-    {
-      title: 'Location de Cuisine',
-      description: 'Louez notre cuisine pour vos événements.',
-      price: 149.99,
-      participants: null,
-      location: 'Cuisine événementielle XYZ',
-      date: null,
-      duration: null,
-      imageUrl: 'https://example.com/location.jpg'
+  buyService(serviceId: string, serviceName: string) {
+    const body = {
+      'cart_id': this.cartId,
+      'service_id': serviceId,
+      'quantity': 1
     }
-  ];*/
+    this.http.post(`${this.apiUrl}/buy/service/${serviceId}`, body, {headers: this.header}).subscribe(
+      (data) => {
+        this.toastr.success(`Réservation pour ${serviceName} effectuée.`, 'Succès');
+      },
+      (error) => {
+        if (error.status === 400) {
+          this.toastr.warning(`Réservation ${serviceName} déjà éffectuée.`, 'Attention');
+        }
+      });
+  }
+
+
+  getRemainingPlaces(serviceId: string): Observable<number> {
+    return this.http.get(`${this.apiUrl}/services/${serviceId}/reservations`, {headers: this.header}).pipe(
+      map((data: any) => data.length)
+    );
+  }
+
+  formatterDate(dateString: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    };
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', options);
+  }
 }

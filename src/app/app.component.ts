@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   constructor(private router: Router) {}
-  title = 'colorblast-front';
+  title = 'cookingacademy-front';
 
   isHomePageRoute(): boolean {
     const currentRoute = this.router.url;

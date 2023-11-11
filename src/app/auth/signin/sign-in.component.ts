@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthentService} from "../../authent.service";
-import {lastValueFrom} from "rxjs";
+import {lastValueFrom, Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-signin',
@@ -10,6 +11,9 @@ import {lastValueFrom} from "rxjs";
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
+
+  private API_URL = environment.apiUrl;
+
   email: string = '';
   password: string = '';
   errorMessage: string = '';
@@ -23,21 +27,38 @@ export class SignInComponent {
       password: this.password
     };
 
-    // En-têtes pour la requête HTTP (si nécessaire)
-    const header = new HttpHeaders()
-      .set('Authorization', 'my-auth-token')
-      .set('Content-Type', 'application/json');
-
-    this.http.post<any>('https://cookingacademy.azurewebsites.net/api/auth/login', formData, {headers: header})
+    this.http.post<any>(`${this.API_URL}/auth/login`, formData)
       .subscribe(
         (response) => {
           if (response === null) {
             sessionStorage.clear();
             return;
           }
-          sessionStorage.setItem('token', response.token);
+          const token = response.token;
+          sessionStorage.setItem('token', token);
           const userId = this.getUserId(response.token).userId;
           sessionStorage.setItem('userId', userId);
+
+          const header = new HttpHeaders()
+            .set('Authorization', token)
+            .set('Content-Type', 'application/json');
+          this.http.get<any>(`${this.API_URL}/users/${userId}/cart`, {headers: header}).subscribe(
+            (cartData) => {
+              sessionStorage.setItem('cartId', cartData[0].id);
+            },
+            (error) => {
+              const body = {
+                'user_id': userId
+              };
+              this.http.post<any>(`${this.API_URL}/carts`, body, {headers: header}).subscribe((cartData) => {
+                this.http.get<any>(`${this.API_URL}/users/${userId}/cart`, {headers: header}).subscribe(
+                  (cartData) => {
+                    sessionStorage.setItem('cartId', cartData[0].id);
+                  }
+                );
+              });
+            }
+          );
 
           // Redirigez l'utilisateur vers la page d'accueil (/home).
           this.router.navigate(['/home']);
@@ -55,6 +76,5 @@ export class SignInComponent {
     this.authent.decodeToken();
     return this.authent.getUserId();
   }
-
 
 }

@@ -59,6 +59,12 @@
   margin-bottom: 10px;
 }
 
+.service-remaining {
+  font-size: 16px;
+  color: darkred; /* Couleur du prix */
+  margin-bottom: 10px;
+}
+
 .reserve-button {
   background-color: #e44d26; /* Couleur du bouton de réservation */
   color: white;

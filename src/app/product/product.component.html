@@ -4,6 +4,6 @@
     <h2 class="product-name">{{ product.name }}</h2>
     <p class="product-description">{{ product.description }}</p>
     <p class="product-price">Prix : {{ product.price }} €</p>
-    <button class="buy-button">Acheter</button>
+    <button class="buy-button" (click)="buyProduct(product.id, product.name)">Acheter</button>
   </div>
 </div>

@@ -18,6 +18,7 @@ import { MenuBlankComponent } from './menu-blank/menu-blank.component';
 import { CartComponent } from './cart/cart.component';
 import { NotifComponent } from './notif/notif.component';
 import { AbonnementsComponent } from './abonnements/abonnements.component';
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AbonnementsComponent } from './abonnements/abonnements.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
