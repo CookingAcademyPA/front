@@ -26,6 +26,7 @@ export class CartComponent implements OnInit {
   services: any[] = [];
   cartSummary: string = '';
   totalPrice: number = 0;
+  paymentHandler: any = null;
 
 constructor(private http: HttpClient, private toastr: ToastrService) {
 }
@@ -33,7 +34,8 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
     this.getAllProducts();
     this.getAllMeals();
     this.getAllServices();
-    this.getUser()
+    this.getUser();
+    this.invokeStripe();
   }
   //#region Get Product/Meal/Service from cart
   getAllProducts() {
@@ -124,7 +126,12 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
   }
   GenerateInvoice(): void {
     this.calculateSummary();
-    this.generateInvoicePDF();
+    this.makePayment(this.totalPrice).then(() => {
+        this.generateInvoicePDF();
+      })
+      .catch((error) => {
+        console.error("Erreur de paiement :", error);
+      });
   }
 
   calculateSummary(): void {
@@ -146,6 +153,47 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
         console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
       }
     );
+  }
+
+  makePayment(amount: any):Promise<void> {
+    return new Promise((resolve, reject) => {
+      const paymentHandler = (<any>window).StripeCheckout.configure({
+        key: 'pk_test_51O7GtdGbMLAE7m3ZvSVmlcnpIMEWF77j5eOtcw1UskTQRQEKI33Hzchgr6QboI34oDZBwEavRTyggKhhc1QlVPPa00ws3E3j3J',
+        locale: 'auto',
+        token: (stripeToken: any) => {
+          console.log(stripeToken);
+          alert('payment successfull!');
+          resolve();
+        },
+      });
+      paymentHandler.open({
+        name: 'Cooking Academy',
+        description: 'Payment',
+        amount: amount * 100,
+        currency: 'eur',
+        panelLabel: 'Payer {{amount}}',
+        locale: 'auto',
+      });
+    });
+  }
+  invokeStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement('script');
+      script.id = 'stripe-script';
+      script.type = 'text/javascript';
+      script.src = 'https://checkout.stripe.com/checkout.js';
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51O7GtdGbMLAE7m3ZvSVmlcnpIMEWF77j5eOtcw1UskTQRQEKI33Hzchgr6QboI34oDZBwEavRTyggKhhc1QlVPPa00ws3E3j3J',
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken);
+            alert('Payment has been successfull!');
+          },
+        });
+      };
+      window.document.body.appendChild(script);
+    }
   }
   generateInvoicePDF(): void {
     // Créez une instance de jsPDF
