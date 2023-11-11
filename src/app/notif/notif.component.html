@@ -1,20 +1,12 @@
 <div class="notifications-container">
   <h2>Notifications</h2>
   <ul class="notification-list">
-    <li class="notification-item">
+    <li *ngFor="let notification of notifications; let i = index" class="notification-item">
       <div class="notification-content">
-        <span class="notification-title">Nouvelle recette disponible</span>
-        <span class="notification-time">Il y a 2 heures</span>
+        <span class="notification-title">{{ notification.title }}</span>
+        <span class="notification-time">{{ notification.time }}</span>
       </div>
-      <button class="notification-button">Marquer comme lu</button>
+      <button class="notification-button" (click)="removeNotification(i)">Supprimer</button>
     </li>
-    <li class="notification-item">
-      <div class="notification-content">
-        <span class="notification-title">Promotion spéciale</span>
-        <span class="notification-time">Hier</span>
-      </div>
-      <button class="notification-button">Marquer comme lu</button>
-    </li>
-    <!-- Ajoutez d'autres éléments de notification au besoin -->
   </ul>
 </div>
