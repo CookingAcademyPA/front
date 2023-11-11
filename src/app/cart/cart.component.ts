@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as jsPDF from 'jspdf';
 
 @Component({
@@ -6,7 +6,7 @@ import * as jsPDF from 'jspdf';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
   showModal: boolean = false;
   cartItems: any[] = [
     {
@@ -28,6 +28,11 @@ export class CartComponent {
   cartSummary: string = '';
   totalPrice: number = 0;
   deliveryAddress: string = '123 Main Street, City';
+
+  cartId = sessionStorage.getItem('cartId');
+  ngOnInit() {
+  }
+
   // Calcule le total du panier
   calculateTotal(): number {
     return this.cartItems.reduce((total, item) => total + item.price, 0);

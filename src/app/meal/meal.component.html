@@ -5,6 +5,6 @@
     <h2 class="meal-name">{{ meal.name }}</h2>
     <p class="meal-description">{{ meal.description }}</p>
     <p class="meal-price">Prix : {{ meal.price }} €</p>
-    <button class="order-button">Commander</button>
+    <button class="order-button" (click)="buyMeal(meal.id, meal.name)">Commander</button>
   </div>
 </div>

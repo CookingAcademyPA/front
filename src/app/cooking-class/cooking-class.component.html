@@ -9,8 +9,9 @@
     <p class="service-price">Prix : {{ service.price }} €</p>
     <p class="service-participants">Nombre de participants : {{ service.number_of_person }}</p>
     <p class="service-location">Lieu : {{ service.place }}</p>
-    <p class="service-date">Date/Heure : {{ service.start_date }}</p>
+    <p class="service-date">Date/Heure : {{ this.formatterDate(service.start_date) }}</p>
     <p class="service-duration">Durée : 2H</p>
-    <button class="reserve-button">Réserver</button>
+    <p class="service-remaining">Restant : {{ service.remainingPlaces }}</p>
+    <button class="reserve-button" (click)="buyService(service.id, service.title)">Réserver</button>
   </div>
 </div>
