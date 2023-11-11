@@ -5,7 +5,8 @@
     <ul>
       <li *ngFor="let avantage of abonnement.advantages">{{ avantage }}</li>
     </ul>
-    <button (click)="souscrire(abonnement.name)">Souscrire</button>
+    <button *ngIf="abonnement.id !== user.subscription_id" (click)="souscrire(abonnement.name)">Souscrire</button>
   </div>
 </div>
+<span>{{ user.subscription_id}}</span>
 <!--*ngIf="abonnement.name === 'Starter' || abonnement.name === 'Master'"-->

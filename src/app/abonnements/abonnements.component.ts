@@ -8,21 +8,24 @@ import {AuthentService} from "../authent.service";
   styleUrls: ['./abonnements.component.css']
 })
 export class AbonnementsComponent {
-
+  user: any = {};
   paymentHandler: any = null;
 
   abonnements = [
     {
+      id: 1,
       name: 'Free',
       price: 'Gratuit',
       advantages: ['Commenter, publier des avis', 'Accès aux leçons 1 fois par jours'],
     },
     {
+      id: 2,
       name: 'Starter',
       price: '9,90€ / mois ou 113€ / an',
       advantages: ['Pas de publicités', 'Accès aux leçons 5 fois par jours', 'Invitation à des événements exclusifs'],
     },
     {
+      id: 3,
       name: 'Master',
       price: '19€ / mois ou 220€ / an',
       advantages: ['Pas de publicités', 'Accès aux leçons illimitées', 'Invitation à des événements exclusifs', 'Livraison offerte sur la boutique'],
@@ -32,6 +35,24 @@ export class AbonnementsComponent {
   constructor(private http: HttpClient,private authService: AuthentService) {}
   ngOnInit() {
     this.invokeStripe();
+
+    const userId = sessionStorage.getItem('userId');
+
+    if (userId) {
+      const apiUrl = `https://cookingacademy.azurewebsites.net/api/users/${userId}`;
+      const headers = new HttpHeaders({
+        Authorization: `${sessionStorage.getItem('token')}`
+      });
+
+      this.http.get(apiUrl, { headers }).subscribe(
+        (userData: any) => {
+          this.user = userData;
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+        }
+      );
+    }
   }
 
   makePayment(amount: any) {
@@ -44,9 +65,12 @@ export class AbonnementsComponent {
       },
     });
     paymentHandler.open({
-      name: 'Checkout',
-      description: '',
+      name: 'Cooking Academy',
+      description: 'Abonnement',
       amount: amount * 100,
+      currency: 'eur', // Définir la devise sur euros
+      panelLabel: 'Payer {{amount}}',
+      locale: 'auto',
     });
   }
   invokeStripe() {
@@ -115,8 +139,6 @@ export class AbonnementsComponent {
           console.error('Erreur lors de la souscription à l\'abonnement :', error);
         }
       );
-
     console.log(`Souscription à l'abonnement : ${abonnementName}`);
   }
-
 }
