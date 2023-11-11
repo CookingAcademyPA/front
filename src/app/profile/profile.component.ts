@@ -2,6 +2,7 @@ import {Component, NgModule} from '@angular/core';
 import {AuthentService} from "../authent.service";
 import {Router, RouterModule} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 
 export class ProfileComponent {
-
+  private apiUrl = environment.apiUrl;
   user: any = {};
   constructor(
     private router: Router,
@@ -23,7 +24,7 @@ export class ProfileComponent {
 
     if (userId) {
       // Construisez l'URL de l'API en utilisant l'ID de l'utilisateur
-      const apiUrl = `https://cookingacademy.azurewebsites.net/api/users/${userId}`;
+      const apiUrl = `${this.apiUrl}/users/${userId}`;
 
       // Définissez les en-têtes avec le jeton JWT
       const headers = new HttpHeaders({
