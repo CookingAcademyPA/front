@@ -19,6 +19,7 @@ import { CartComponent } from './cart/cart.component';
 import { NotifComponent } from './notif/notif.component';
 import { AbonnementsComponent } from './abonnements/abonnements.component';
 import {ToastrModule} from "ngx-toastr";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -33,17 +34,18 @@ import {ToastrModule} from "ngx-toastr";
     NotifComponent,
     AbonnementsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MenuModule,
-    FooterModule,
-    AuthModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    ToastrModule.forRoot(),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MenuModule,
+        FooterModule,
+        AuthModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        ToastrModule.forRoot(),
+        MatProgressSpinnerModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

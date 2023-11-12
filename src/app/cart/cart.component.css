@@ -86,6 +86,12 @@
 .checkout-button:hover {
   background-color: #c6340b;
 }
+
+.checkout-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 /* Styles pour la modal */
 .modal {
   display: block;

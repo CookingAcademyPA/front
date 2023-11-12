@@ -3,6 +3,7 @@ import * as jsPDF from 'jspdf';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -27,9 +28,11 @@ export class CartComponent implements OnInit {
   cartSummary: string = '';
   totalPrice: number = 0;
   paymentHandler: any = null;
+  isLoading = true;
 
-constructor(private http: HttpClient, private toastr: ToastrService) {
-}
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
+  }
+
   ngOnInit() {
     this.getAllProducts();
     this.getAllMeals();
@@ -37,6 +40,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
     this.getUser();
     this.invokeStripe();
   }
+
   //#region Get Product/Meal/Service from cart
   getAllProducts() {
     this.http.get(`${this.apiUrl}/carts/${this.cartId}/product`, {headers: this.header}).subscribe(
@@ -44,13 +48,15 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
         this.productsCart = data;
         this.productsCart.forEach(product => {
           this.getProductFromCart(product.product_id);
-        })
+        });
+        this.isLoading = false;
       },
       (error) => {
         console.error('Une erreur s\'est produite lors de la récupération des produits :', error);
       }
     );
   }
+
   getProductFromCart(id: number) {
     this.http.get(`${this.apiUrl}/products/${id}`, {headers: this.header}).subscribe(
       (data: any) => {
@@ -61,6 +67,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
       }
     );
   }
+
   getAllMeals() {
     this.http.get(`${this.apiUrl}/carts/${this.cartId}/meal`, {headers: this.header}).subscribe(
       (data: any) => {
@@ -74,6 +81,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
       }
     );
   }
+
   getMealFromCart(id: number) {
     this.http.get(`${this.apiUrl}/meals/${id}`, {headers: this.header}).subscribe(
       (data: any) => {
@@ -98,6 +106,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
       }
     );
   }
+
   getServiceFromCart(id: number) {
     this.http.get(`${this.apiUrl}/services/${id}`, {headers: this.header}).subscribe(
       (data: any) => {
@@ -112,11 +121,11 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
 //#endregion
 
 
-
   // Calcule le total du panier
   calculateTotal(): number {
-    return this.products.reduce((total, item) => total + item.price, 0)+this.meals.reduce((total, item) => total + item.price, 0) + this.services.reduce((total, item) => total + item.price, 0);
+    return this.products.reduce((total, item) => total + item.price, 0) + this.meals.reduce((total, item) => total + item.price, 0) + this.services.reduce((total, item) => total + item.price, 0);
   }
+
   removeItem(index: number): void {
     if (index >= 0 && index < this.products.length) {
       this.products.splice(index, 1);
@@ -124,14 +133,19 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
       this.calculateSummary();
     }
   }
+
   GenerateInvoice(): void {
     this.calculateSummary();
     this.makePayment(this.totalPrice).then(() => {
-        this.generateInvoicePDF();
-      })
-      .catch((error) => {
-        console.error("Erreur de paiement :", error);
+      //this.generateInvoicePDF();
+      this.updateCartState();
+      this.createNewCart().then(() => {
+        this.toastr.success('Votre panier a été payé.', 'Succès');
+        this.router.navigate(['/profile']);
       });
+    }).catch((error) => {
+      console.error("Erreur de paiement :", error);
+    });
   }
 
   calculateSummary(): void {
@@ -145,7 +159,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
 
   getUser(): void {
     // Effectuez une requête HTTP GET pour obtenir les données de l'utilisateur
-    this.http.get(`${this.apiUrl}/users/${this.userId}`, { headers: this.header }).subscribe(
+    this.http.get(`${this.apiUrl}/users/${this.userId}`, {headers: this.header}).subscribe(
       (userData: any) => {
         this.user = userData;
       },
@@ -155,14 +169,13 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
     );
   }
 
-  makePayment(amount: any):Promise<void> {
+  makePayment(amount: any): Promise<void> {
     return new Promise((resolve, reject) => {
       const paymentHandler = (<any>window).StripeCheckout.configure({
         key: 'pk_test_51O7GtdGbMLAE7m3ZvSVmlcnpIMEWF77j5eOtcw1UskTQRQEKI33Hzchgr6QboI34oDZBwEavRTyggKhhc1QlVPPa00ws3E3j3J',
         locale: 'auto',
         token: (stripeToken: any) => {
           console.log(stripeToken);
-          alert('payment successfull!');
           resolve();
         },
       });
@@ -176,6 +189,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
       });
     });
   }
+
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
       const script = window.document.createElement('script');
@@ -195,6 +209,7 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
       window.document.body.appendChild(script);
     }
   }
+
   generateInvoicePDF(): void {
     // Créez une instance de jsPDF
     const doc = new jsPDF.default();
@@ -255,6 +270,39 @@ constructor(private http: HttpClient, private toastr: ToastrService) {
     y += 10;
     // Enregistrez ou téléchargez le PDF
     doc.save('facture.pdf');
+  }
+
+  updateCartState(): void {
+    const body = {
+      'state': 'PAID'
+    }
+    this.http.put(`${this.apiUrl}/carts/${this.cartId}`, body, {headers: this.header}).subscribe(
+      (data: any) => {
+        if (data.state === 'paid') {
+          this.toastr.success('Votre panier a été payé.', 'Succès');
+        }
+      },
+      (error) => {
+        console.error('Une erreur s\'est produite lors de la récupération du panier :', error);
+        this.toastr.error('Un problème est survenu lors du paiement de votre panier.');
+      }
+    );
+  }
+
+  createNewCart(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const body = {
+        'user_id': this.userId
+      };
+      this.http.post<any>(`${this.apiUrl}/carts`, body, {headers: this.header}).subscribe((cartData) => {
+        this.http.get<any>(`${this.apiUrl}/users/${this.userId}/cart`, {headers: this.header}).subscribe(
+          (cartData) => {
+            sessionStorage.setItem('cartId', cartData[0].id);
+          }
+        );
+      });
+      resolve();
+    });
   }
 
 }
