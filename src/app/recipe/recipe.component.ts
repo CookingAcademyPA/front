@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-recipe',
@@ -7,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./recipe.component.css']
 })
 export class RecipeComponent implements OnInit{
+  private apiUrl = environment.apiUrl;
   recipes: any[] = [];
 
   constructor(private http: HttpClient) { }
@@ -14,9 +16,7 @@ export class RecipeComponent implements OnInit{
     this.getAllRecipes();
   }
   getAllRecipes() {
-    const apiUrl = 'https://cookingacademy.azurewebsites.net/api/recipes';
-
-    this.http.get(apiUrl).subscribe(
+    this.http.get(`${this.apiUrl}/recipes`).subscribe(
       (data: any) => {
         this.recipes = data;
       },
@@ -25,21 +25,4 @@ export class RecipeComponent implements OnInit{
       }
     );
   }
-  /*recipes = [
-    {
-      name: 'Spaghetti Bolognese',
-      description: 'Une délicieuse recette de spaghetti avec une sauce bolognaise maison.',
-      imageUrl: 'https://example.com/spaghetti.jpg'
-    },
-    {
-      name: 'Salade César',
-      description: 'Une salade croustillante avec des croûtons, du parmesan et une vinaigrette crémeuse.',
-      imageUrl: 'https://example.com/caesarsalad.jpg'
-    },
-    {
-      name: 'Tarte aux Pommes',
-      description: 'Une tarte sucrée aux pommes avec une croûte dorée et croustillante.',
-      imageUrl: 'https://example.com/applepie.jpg'
-    }
-  ];*/
 }
