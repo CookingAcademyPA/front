@@ -12,6 +12,6 @@
     <p class="service-date">Date/Heure : {{ this.formatterDate(service.start_date) }}</p>
     <p class="service-duration">Durée : 2H</p>
     <p class="service-remaining">Restant : {{ service.remainingPlaces }}</p>
-    <button class="reserve-button" (click)="buyService(service.id, service.title)">Réserver</button>
+    <button class="reserve-button" (click)="buyService(service.id, service.title)" [disabled]="service.hasReserved">Réserver</button>
   </div>
 </div>

@@ -2,49 +2,52 @@
   <div class="cart-header">
     <h2>Votre Panier</h2>
   </div>
-  <div *ngIf="products.length > 0" class="cart-items">
-    <h3>Produits</h3>
-    <div class="cart-item" *ngFor="let item of products; let i = index">
-      <img class="cart-item-image" src="../../assets/products.jpg" alt="Product Image">
-      <div class="cart-item-details">
-        <h3 class="cart-item-name">{{ item.name }}</h3>
-        <p class="cart-item-description">{{ item.description }}</p>
-        <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div *ngIf="!isLoading">
+    <div *ngIf="products.length > 0" class="cart-items">
+      <h3>Produits</h3>
+      <div class="cart-item" *ngFor="let item of products; let i = index">
+        <img class="cart-item-image" src="../../assets/products.jpg" alt="Product Image">
+        <div class="cart-item-details">
+          <h3 class="cart-item-name">{{ item.name }}</h3>
+          <p class="cart-item-description">{{ item.description }}</p>
+          <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
+        </div>
+        <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
       </div>
-      <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
     </div>
-  </div>
 
-  <div *ngIf="meals.length > 0" class="cart-items">
-    <br>
-    <h3>Repas</h3>
-    <div class="cart-item" *ngFor="let item of meals; let i = index">
-      <img class="cart-item-image" src="../../assets/meals.jpg" alt="Meals Image">
-      <div class="cart-item-details">
-        <h3 class="cart-item-name">{{ item.name }}</h3>
-        <p class="cart-item-description">{{ item.description }}</p>
-        <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
+    <div *ngIf="meals.length > 0" class="cart-items">
+      <br>
+      <h3>Repas</h3>
+      <div class="cart-item" *ngFor="let item of meals; let i = index">
+        <img class="cart-item-image" src="../../assets/meals.jpg" alt="Meals Image">
+        <div class="cart-item-details">
+          <h3 class="cart-item-name">{{ item.name }}</h3>
+          <p class="cart-item-description">{{ item.description }}</p>
+          <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
+        </div>
+        <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
       </div>
-      <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
     </div>
-  </div>
 
-  <div *ngIf="services.length > 0" class="cart-items">
-    <br>
-    <h3>Services</h3>
-    <div class="cart-item" *ngFor="let item of services; let i = index">
-      <img class="cart-item-image" src="../../assets/service.jpg" alt="Service Image">
-      <div class="cart-item-details">
-        <h3 class="cart-item-name">{{ item.title }}</h3>
-        <p class="cart-item-description">{{ item.description }}</p>
-        <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
+    <div *ngIf="services.length > 0" class="cart-items">
+      <br>
+      <h3>Services</h3>
+      <div class="cart-item" *ngFor="let item of services; let i = index">
+        <img class="cart-item-image" src="../../assets/service.jpg" alt="Service Image">
+        <div class="cart-item-details">
+          <h3 class="cart-item-name">{{ item.title }}</h3>
+          <p class="cart-item-description">{{ item.description }}</p>
+          <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
+        </div>
+        <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
       </div>
-      <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
     </div>
-  </div>
 
-  <div class="cart-total">
-    <p>Total : {{ calculateTotal() | currency: 'EUR' }}</p>
+    <div class="cart-total">
+      <p>Total : {{ calculateTotal() | currency: 'EUR' }}</p>
+    </div>
+    <button class="checkout-button" [disabled]="calculateTotal() == 0" (click)="GenerateInvoice()">Passer la Commande</button>
   </div>
-  <button class="checkout-button" (click)="GenerateInvoice()">Passer la Commande</button>
 </div>

@@ -35,6 +35,9 @@ export class CookingClassComponent implements OnInit {
           this.getRemainingPlaces(service.id).subscribe(
             remainingPlaces => service.remainingPlaces = service.number_of_person - remainingPlaces
           );
+          this.getCartHasReserved(service.id).subscribe(
+            hasReserved => service.hasReserved = hasReserved
+          );
         });
       },
       (error) => {
@@ -60,10 +63,15 @@ export class CookingClassComponent implements OnInit {
       });
   }
 
-
   getRemainingPlaces(serviceId: string): Observable<number> {
     return this.http.get(`${this.apiUrl}/services/${serviceId}/reservations`, {headers: this.header}).pipe(
       map((data: any) => data.length)
+    );
+  }
+
+  getCartHasReserved(serviceId: string): Observable<boolean> {
+    return this.http.get(`${this.apiUrl}/services/${serviceId}/reservations/${this.cartId}`, {headers: this.header}).pipe(
+      map((data: any) => data.hasReservation)
     );
   }
 
