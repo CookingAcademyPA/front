@@ -79,3 +79,8 @@
 .reserve-button:hover {
   background-color: #c6340b; /* Couleur du bouton de réservation au survol */
 }
+
+.reserve-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

@@ -13,6 +13,7 @@ export class CookingClassComponent implements OnInit {
   private apiUrl = environment.apiUrl;
   services: any[] = [];
   cartId = sessionStorage.getItem('cartId') || '';
+  userId = sessionStorage.getItem('userId') || '';
 
   token = sessionStorage.getItem('token') || '';
   private header = new HttpHeaders()
@@ -34,6 +35,9 @@ export class CookingClassComponent implements OnInit {
         this.services.forEach(service => {
           this.getRemainingPlaces(service.id).subscribe(
             remainingPlaces => service.remainingPlaces = service.number_of_person - remainingPlaces
+          );
+          this.getUserHasReserved(service.id).subscribe(
+            hasReserved => service.hasReserved = hasReserved
           );
         });
       },
@@ -60,10 +64,15 @@ export class CookingClassComponent implements OnInit {
       });
   }
 
-
   getRemainingPlaces(serviceId: string): Observable<number> {
     return this.http.get(`${this.apiUrl}/services/${serviceId}/reservations`, {headers: this.header}).pipe(
       map((data: any) => data.length)
+    );
+  }
+
+  getUserHasReserved(serviceId: string): Observable<boolean> {
+    return this.http.get(`${this.apiUrl}/services/${serviceId}/reservations/${this.userId}`, {headers: this.header}).pipe(
+      map((data: any) => data.hasReservation)
     );
   }
 
