@@ -13,7 +13,7 @@
           <p class="cart-item-description">{{ item.description }}</p>
           <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
         </div>
-        <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
+        <button class="cart-item-remove-button" (click)="removeProduct(item.id)">Supprimer</button>
       </div>
     </div>
 
@@ -27,7 +27,7 @@
           <p class="cart-item-description">{{ item.description }}</p>
           <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
         </div>
-        <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
+        <button class="cart-item-remove-button" (click)="removeMeal(item.id)">Supprimer</button>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
           <p class="cart-item-description">{{ item.description }}</p>
           <p class="cart-item-price">{{ item.price | currency: 'EUR' }}</p>
         </div>
-        <button class="cart-item-remove-button" (click)="removeItem(i)">Supprimer</button>
+        <button class="cart-item-remove-button" (click)="removeService(item.id)">Supprimer</button>
       </div>
     </div>
 

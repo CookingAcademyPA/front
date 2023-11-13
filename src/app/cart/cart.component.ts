@@ -126,18 +126,56 @@ export class CartComponent implements OnInit {
     return this.products.reduce((total, item) => total + item.price, 0) + this.meals.reduce((total, item) => total + item.price, 0) + this.services.reduce((total, item) => total + item.price, 0);
   }
 
-  removeItem(index: number): void {
-    if (index >= 0 && index < this.products.length) {
-      this.products.splice(index, 1);
-      // Recalculez le total après la suppression de l'élément
-      this.calculateSummary();
-    }
+  removeProduct(productId: number): void {
+    this.http.delete(`${this.apiUrl}/carts/${this.cartId}/product/${productId}`, {headers: this.header}).subscribe(
+      (data: any) => {
+        window.location.reload();
+        this.getAllProducts();
+        this.calculateSummary();
+      },
+      (error) => {
+        window.location.reload();
+        console.error('Une erreur s\'est produite lors de la suppression du plat :', error);
+        this.getAllProducts();
+        this.calculateSummary();
+      }
+    )
+  }
+  removeMeal(mealId: number): void {
+    this.http.delete(`${this.apiUrl}/carts/${this.cartId}/meal/${mealId}`, {headers: this.header}).subscribe(
+      (data: any) => {
+        window.location.reload();
+        this.getAllMeals();
+        this.calculateSummary();
+      },
+      (error) => {
+        window.location.reload();
+        console.error('Une erreur s\'est produite lors de la suppression du plat :', error);
+        this.getAllMeals();
+        this.calculateSummary();
+      }
+    )
+  }
+  removeService(serviceId: number): void {
+    this.http.delete(`${this.apiUrl}/carts/${this.cartId}/service/${serviceId}`, {headers: this.header}).subscribe(
+      (data: any) => {
+        window.location.reload();
+        this.getAllServices();
+        this.calculateSummary();
+      },
+      (error) => {
+        window.location.reload();
+        console.error('Une erreur s\'est produite lors de la suppression du plat :', error);
+        this.getAllServices();
+        this.calculateSummary();
+      }
+    )
   }
 
   GenerateInvoice(): void {
     this.calculateSummary();
     this.makePayment(this.totalPrice).then(() => {
-      //this.generateInvoicePDF();
+      this.generateInvoicePDF();
       this.updateCartState();
       this.createNewCart().then(() => {
         this.toastr.success('Votre panier a été payé.', 'Succès');
