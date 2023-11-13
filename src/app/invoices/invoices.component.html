@@ -1,0 +1,7 @@
+<div class="invoices-section">
+  <h3>Vos Factures</h3>
+  <div *ngFor="let cart of cartPaid" class="invoice-item">
+    <span>{{cart.created_at | date: 'dd/MM/yyyy'}}</span>
+    <button (click)="downloadInvoicePdf(cart.id)">Télécharger PDF</button>
+  </div>
+</div>

@@ -12,7 +12,14 @@ import {environment} from "../../environments/environment";
 
 export class ProfileComponent {
   private apiUrl = environment.apiUrl;
+  cartId = sessionStorage.getItem('cartId');
+  private token = sessionStorage.getItem('token') || '';
+  private userId = sessionStorage.getItem('userId') || '';
+  private header = new HttpHeaders()
+    .set('Authorization', this.token)
+    .set('Content-Type', 'application/json');
   user: any = {};
+  cartPaid: any[] = [];
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -66,8 +73,7 @@ export class ProfileComponent {
   redirectToAbonnements() {
     this.router.navigate(['/abonnements']); // Effectue la redirection
   }
-  test() {
-    console.log(this.authService.getToken());
-    console.log(this.authService.getUserIdFromToken());
+  redirectToInvoices() {
+    this.router.navigate(['/invoices']); // Effectue la redirection
   }
 }

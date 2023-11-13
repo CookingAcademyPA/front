@@ -20,6 +20,7 @@ import { NotifComponent } from './notif/notif.component';
 import { AbonnementsComponent } from './abonnements/abonnements.component';
 import {ToastrModule} from "ngx-toastr";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { InvoicesComponent } from './invoices/invoices.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MenuBlankComponent,
     CartComponent,
     NotifComponent,
-    AbonnementsComponent
+    AbonnementsComponent,
+    InvoicesComponent
   ],
     imports: [
         BrowserModule,
