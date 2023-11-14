@@ -10,6 +10,10 @@ export class AppComponent {
   constructor(private router: Router) {}
   title = 'cookingacademy-front';
 
+  isLogged(): boolean {
+    return sessionStorage.getItem('token') !== null;
+  }
+
   isHomePageRoute(): boolean {
     const currentRoute = this.router.url;
     return currentRoute === '/connexion' || currentRoute === '/signin' || currentRoute === '/signup';
