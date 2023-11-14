@@ -11,8 +11,7 @@ export class MenuComponent {
   constructor(private authService: AuthentService, private router: Router) {} // Injectez le service d'authentification
 
   logout(): void {
-    // Appelez la méthode de déconnexion pour effacer le token
-    this.authService.clearToken();
+    this.authService.clearSession();
     this.router.navigate(['/']);
   }
 }

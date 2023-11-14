@@ -1,8 +1,8 @@
 <div class="wrapper">
-  <ng-container *ngIf="isHomePageRoute()">
+  <ng-container *ngIf="!isLogged()">
     <app-menu-blank></app-menu-blank>
   </ng-container>
-  <ng-container *ngIf="!isHomePageRoute()">
+  <ng-container *ngIf="isLogged()">
     <app-menu></app-menu>
   </ng-container>
   <router-outlet></router-outlet>

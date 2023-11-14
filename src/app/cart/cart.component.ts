@@ -316,7 +316,7 @@ export class CartComponent implements OnInit {
     }
     this.http.put(`${this.apiUrl}/carts/${this.cartId}`, body, {headers: this.header}).subscribe(
       (data: any) => {
-        if (data.state === 'paid') {
+        if (data.state === 'PAID') {
           this.toastr.success('Votre panier a été payé.', 'Succès');
         }
       },

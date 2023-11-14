@@ -17,24 +17,25 @@ import {ConnexionComponent} from "./connexion/connexion.component";
 import {NotifComponent} from "./notif/notif.component";
 import {AbonnementsComponent} from "./abonnements/abonnements.component";
 import {InvoicesComponent} from "./invoices/invoices.component";
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'shop', component: ShopComponent },
-  { path: 'recipe', component: RecipeComponent },
-  { path: 'meal', component: MealComponent },
-  { path: 'cooking-class', component: CookingClassComponent },
-  { path: 'product', component: ProductComponent },
-  { path: 'notifications', component: NotifComponent },
-  { path: 'messages', component: PageEmptyComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
+  { path: 'shop', canActivate: [AuthGuard],  component: ShopComponent },
+  { path: 'recipe', canActivate: [AuthGuard],  component: RecipeComponent },
+  { path: 'meal', canActivate: [AuthGuard],  component: MealComponent },
+  { path: 'cooking-class', canActivate: [AuthGuard],  component: CookingClassComponent },
+  { path: 'product', canActivate: [AuthGuard],  component: ProductComponent },
+  { path: 'notifications', canActivate: [AuthGuard],  component: NotifComponent },
+  { path: 'messages', canActivate: [AuthGuard],  component: PageEmptyComponent },
+  { path: 'profile', canActivate: [AuthGuard],  component: ProfileComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'terms', component: TermComponent },
   {path: 'connexion', component: ConnexionComponent},
-  { path: 'cart', component: CartComponent},
-  { path: 'abonnements', component: AbonnementsComponent},
-  { path: 'invoices', component: InvoicesComponent},
+  { path: 'cart', canActivate: [AuthGuard],  component: CartComponent},
+  { path: 'abonnements', canActivate: [AuthGuard],  component: AbonnementsComponent},
+  { path: 'invoices', canActivate: [AuthGuard],  component: InvoicesComponent},
   { path: '', redirectTo: '/connexion', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent } // Route pour la page non trouvée
 ];
