@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthentService} from "../authent.service";
-import {Router, RouterModule} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-menu',

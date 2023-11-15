@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthentService} from "../../authent.service";
-import {lastValueFrom, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 @Component({

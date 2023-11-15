@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {PageNotFoundComponent} from "./error/page-not-found/page-not-found.component";
-import {ShopComponent} from "./shop/shop.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {PageEmptyComponent} from "./error/page-empty/page-empty.component";
 import {SignInComponent} from "./auth/signin/sign-in.component";
@@ -21,7 +20,6 @@ import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
-  { path: 'shop', canActivate: [AuthGuard],  component: ShopComponent },
   { path: 'recipe', canActivate: [AuthGuard],  component: RecipeComponent },
   { path: 'meal', canActivate: [AuthGuard],  component: MealComponent },
   { path: 'cooking-class', canActivate: [AuthGuard],  component: CookingClassComponent },

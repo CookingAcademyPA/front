@@ -1,6 +1,6 @@
-import {Component, NgModule} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthentService} from "../authent.service";
-import {Router, RouterModule} from "@angular/router";
+import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
