@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
@@ -10,7 +10,7 @@ import * as jsPDF from 'jspdf';
   templateUrl: './invoices.component.html',
   styleUrls: ['./invoices.component.css']
 })
-export class InvoicesComponent {
+export class InvoicesComponent implements OnInit {
   private apiUrl = environment.apiUrl;
   private token = sessionStorage.getItem('token') || '';
   private userId = sessionStorage.getItem('userId') || '';
